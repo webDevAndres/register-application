@@ -4,7 +4,10 @@ var $ = function(id) {
 };
 
 var processEntries = function() {
-    var isValid = true;
+    var header = "";
+    var html = "";
+    var required = "<span> Required field</span>";
+    var msg = "Please review your entries and complete all required fields.";
 
     // get the values
     var email = $("email_address").value;
@@ -17,41 +20,40 @@ var processEntries = function() {
 
     // validate fields
     if (email == "") {
-        $("email_address").nextElementSibling.firstChild.nodeValue = "This field is required.";
-        isValid = false;
-    } else {
-        $("email_address").nextElementSibling.firstChild.nodeValue = "";
+       email = required;
+       header = msg;
     }
     if (phone == "") {
-        $("phone").nextElementSibling.firstChild.nodeValue = "This field is required.";
-        isValid = false;
-    } else {
-        $("phone").nextElementSibling.firstChild.nodeValue = "";
+        phone = required;
+        header = msg;
     }
     if (country == "") {
-        $("country").nextElementSibling.firstChild.nodeValue = "This field is required.";
-        isValid = false;
-    } else {
-        $("country").nextElementSibling.firstChild.nodeValue = "";
+      country = required;
+      header = msg;
     }
     if (terms == false) {
-        $("terms").nextElementSibling.firstChild.nodeValue = "This field is required";
-        isValid = false;
-    } else {
-        $("terms").nextElementSibling.firstChild.nodeValue = "";
+       terms = required;
+       header = msg;
     }
+    
 
-    if (isValid) {
+    $("registration_header").firstChild.nodeValue = header;
+    if (header == msg) {
+        html = html + "<tr><td>Email:</td><td>" + email + "</td></tr>";
+        html = html + "<tr><td>Phone:</td><td>" + phone + "</td></tr>";
+        html = html + "<tr><td>Country:</td><td>" + country + "</td></tr>";
+        html = html + "<tr><td>Terms:</td><td>" + terms + "</td></tr>";
+        $("registration_info").innerHTML = html;
+    } else {
+        $("registration_info").innerHTML = "";
         $("registration_form").submit();
     }
 };
 
 var resetForm = function() {
     $("registration_form").reset(); 
-    $("email_address").nextElementSibling.firstChild.nodeValue = "*"; 
-    $("phone").nextElementSibling.firstChild.nodeValue = "*"; 
-    $("country").nextElementSibling.firstChild.nodeValue = "*"; 
-    $("terms").nextElementSibling.firstChild.nodeValue = "*"; 
+    $("registration_header").firstChild.nodeValue = ""; 
+    $("registration_info").innerHTML = ""; 
     $("email_address").focus();   
 };
 
