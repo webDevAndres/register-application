@@ -28,7 +28,7 @@ input, select, textarea {
 input[type="checkbox"], [type="radio"] {
     width: 1em;
 }
-#registration_form span {
+#registration_info span {
     color: red;
 }
 td {
